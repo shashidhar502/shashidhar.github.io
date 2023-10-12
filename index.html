@@ -5,8 +5,13 @@
 <h2>Using the XMLHttpRequest Object</h2>
 
 <p id="demo"></p>
-<button type="button" onclick="loadasync()">async</button>
-<button type="button" onclick="loadsync()">sync</button>
+<button type="button" onclick="loadasync()">Agent app async</button>
+<button type="button" onclick="loadsync()">Agent app sync</button>
+</div>
+
+<div style=margin-top:20px;>
+<button type="button" onclick="loadasync()">Requestor app async</button>
+<button type="button" onclick="loadsync()">Requestor app sync</button>
 </div>
 
 <script>
@@ -29,7 +34,29 @@ myPromise.then(function(value) {
 function loadsync() {
   document.getElementById("demo").innerHTML = "loading synchronously...";
 	window.location.href = "https://httpbin.org/redirect-to?url=snappauth%3A%2F%2F"
-  //window.setInterval(()=> { console.log('test'); window.location.href = 'snappauth://'; }, 10000) 
+  
+}
+
+
+function loadRequestasync(){
+document.getElementById("demo").innerHTML = "loading async...";
+	setTimeout(function() { loadRequestasync_internal(); }, 3000);
+}
+function loadRequestasync_internal() {
+const myPromise1 = new Promise(function(myResolve, myReject) {
+   myResolve("https://httpbin.org/redirect-to?url=snempappauth%3A%2F%2F"); 
+});
+
+myPromise1.then(function(value) {
+	document.getElementById("demo").innerHTML = "loading async triggered...";
+  window.location.href = value;
+});
+
+}
+function loadRequestsync() {
+  document.getElementById("demo").innerHTML = "loading synchronously...";
+	window.location.href = "https://httpbin.org/redirect-to?url=snempappauth%3A%2F%2F"
+  
 }
 </script>
 
