@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Using the XMLHttpRequest Object (Request)</h2>
+
+<p id="demo"></p>
+<button type="button" onclick="loadasync()">async</button>
+<button type="button" onclick="loadsync()">sync</button>
+</div>
+
+<script>
+//$(document).ready(function() { window.location="https://httpbin.org/redirect-to?url=snappauth%3A%2F%2F"; })
+function loadasync(){
+document.getElementById("demo").innerHTML = "loading async...";
+	setTimeout(function() { loadasync_internal(); }, 3000);
+}
+function loadasync_internal() {
+const myPromise = new Promise(function(myResolve, myReject) {
+   myResolve("https://httpbin.org/redirect-to?url=snappauth%3A%2F%2F"); 
+});
+
+myPromise.then(function(value) {
+	document.getElementById("demo").innerHTML = "loading async triggered...";
+  window.location.href = value;
+});
+
+}
+function loadsync() {
+  document.getElementById("demo").innerHTML = "loading synchronously...";
+	window.location.href = "https://httpbin.org/redirect-to?url=snappauth%3A%2F%2F"
+  //window.setInterval(()=> { console.log('test'); window.location.href = 'snappauth://'; }, 10000) 
+}
+</script>
+
+</body>
+</html>
