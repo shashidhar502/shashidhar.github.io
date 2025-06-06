@@ -8,6 +8,7 @@
 <a href="microsoft-edge:https://www.example.com">Open in Edge</a>
 <button type="button" onclick="loadasync()">Agent app async</button>
 <button type="button" onclick="loadsync()">Agent app sync</button>
+<button type="button" onclick="loadTest()"> Test Agent app full url</button>
 </div>
 
 <div style=margin-top:20px;>
@@ -35,6 +36,12 @@ myPromise.then(function(value) {
 function loadsync() {
   document.getElementById("demo").innerHTML = "loading synchronously...";
 	window.location.href = "https://httpbin.org/redirect-to?url=snappauth%3A%2F%2F"
+  
+}
+
+function loadTest() {
+  document.getElementById("demo").innerHTML = "loading synchronously...";
+	window.location.href = "https://httpbin.org/redirect-to?url=snappauth%3A%2F%2F&client_id=ff97fbb4da3313004591cc3a291b47fd&response_type=code&state=JKpAaFoslM-WpS_1WUK03w&nonce=oPt7AZQtFiLSjtqt0q5uSg&code_challenge=N_LZ90sqbwwqim_YFJFa7fs4RJtObRXEzbqdwn3s-9Q&code_challenge_method=S256&logoutfirst=false"
   
 }
 
