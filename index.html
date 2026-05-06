@@ -46,8 +46,17 @@
     placeholder="enter custom schema"
     style="display:none; padding:6px 10px; font-size:14px; width:180px; border:1px solid #ccc; border-radius:4px;"
   />
+  <select id="mobileAppDelay" style="padding:6px 8px; font-size:14px; border:1px solid #ccc; border-radius:4px;">
+    <option value="3000">3 seconds</option>
+    <option value="5000">5 seconds</option>
+    <option value="10000">10 seconds</option>
+    <option value="20000">20 seconds</option>
+  </select>
   <button type="button" onclick="goToMobileAppLink()" style="padding:6px 14px; font-size:14px; cursor:pointer;">
-    Go to mobileapplink
+    Go to mobileapplink (sync)
+  </button>
+  <button type="button" onclick="goToMobileAppLinkAsync()" style="padding:6px 14px; font-size:14px; cursor:pointer;">
+    Go to mobileapplink (async)
   </button>
   <span id="snLinkError" style="color:red; font-size:13px;"></span>
 </div>
@@ -59,16 +68,13 @@ function toggleCustomSchema() {
   custom.style.display = sel.value === "custom" ? "inline-block" : "none";
 }
 
-function goToMobileAppLink() {
+function buildMobileAppUrl() {
   var raw = document.getElementById("snHostInput").value.trim();
   var error = document.getElementById("snLinkError");
   error.textContent = "";
 
   var host = raw;
-
-  // Strip protocol if present
   host = host.replace(/^https?:\/\//i, "");
-  // Take only the hostname part (drop path/query)
   host = host.split("/")[0];
 
   var sel = document.getElementById("snappSelect");
@@ -77,27 +83,39 @@ function goToMobileAppLink() {
     snapp = document.getElementById("customSchemaInput").value.trim();
     if (!snapp) {
       error.textContent = "Please enter a custom schema value.";
-      return;
+      return null;
     }
   } else {
     snapp = sel.value;
   }
 
   var url;
-  if (!host) {
-    // Blank — default to service-now.com directly
-    url = "https://service-now.com/mobileapplink?snapp=" + encodeURIComponent(snapp) + "&params=blah";
-  } else if (host.toLowerCase() === "service-now.com") {
+  if (!host || host.toLowerCase() === "service-now.com") {
     url = "https://service-now.com/mobileapplink?snapp=" + encodeURIComponent(snapp) + "&params=blah";
   } else {
-    // Extract subdomain: strip trailing ".service-now.com" if present
     var subdomain = host;
     if (host.toLowerCase().endsWith(".service-now.com")) {
       subdomain = host.slice(0, host.length - ".service-now.com".length);
     }
     url = "https://" + subdomain + ".service-now.com/mobileapplink?snapp=" + encodeURIComponent(snapp) + "&params=blah";
   }
-  window.location.href = "https://httpbin.org/redirect-to?url=" + encodeURIComponent(url);
+  return "https://httpbin.org/redirect-to?url=" + encodeURIComponent(url);
+}
+
+function goToMobileAppLink() {
+  var url = buildMobileAppUrl();
+  if (url) window.location.href = url;
+}
+
+function goToMobileAppLinkAsync() {
+  var url = buildMobileAppUrl();
+  if (!url) return;
+  var delay = parseInt(document.getElementById("mobileAppDelay").value);
+  document.getElementById("demo").innerHTML = "loading async...";
+  setTimeout(function() {
+    document.getElementById("demo").innerHTML = "loading async triggered...";
+    window.location.href = url;
+  }, delay);
 }
 </script>
 
