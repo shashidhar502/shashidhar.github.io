@@ -16,6 +16,78 @@
 <button type="button" onclick="loadRequestsync()">Requestor app sync</button>
 </div>
 
+<div style="margin-top:20px; display:flex; flex-wrap:wrap; align-items:center; gap:8px;">
+  <input
+    type="text"
+    id="snHostInput"
+    placeholder="service-now.com"
+    style="padding:6px 10px; font-size:14px; width:280px; border:1px solid #ccc; border-radius:4px;"
+  />
+  <select id="snappSelect" style="padding:6px 8px; font-size:14px; border:1px solid #ccc; border-radius:4px;" onchange="toggleCustomSchema()">
+    <option value="agent">agent</option>
+    <option value="mobile">mobile</option>
+    <option value="custom">custom schema…</option>
+  </select>
+  <input
+    type="text"
+    id="customSchemaInput"
+    placeholder="enter custom schema"
+    style="display:none; padding:6px 10px; font-size:14px; width:180px; border:1px solid #ccc; border-radius:4px;"
+  />
+  <button type="button" onclick="goToMobileAppLink()" style="padding:6px 14px; font-size:14px; cursor:pointer;">
+    Go to mobileapplink
+  </button>
+  <span id="snLinkError" style="color:red; font-size:13px;"></span>
+</div>
+
+<script>
+function toggleCustomSchema() {
+  var sel = document.getElementById("snappSelect");
+  var custom = document.getElementById("customSchemaInput");
+  custom.style.display = sel.value === "custom" ? "inline-block" : "none";
+}
+
+function goToMobileAppLink() {
+  var raw = document.getElementById("snHostInput").value.trim();
+  var error = document.getElementById("snLinkError");
+  error.textContent = "";
+
+  var host = raw;
+
+  // Strip protocol if present
+  host = host.replace(/^https?:\/\//i, "");
+  // Take only the hostname part (drop path/query)
+  host = host.split("/")[0];
+
+  // If user typed something like "name.service-now.com", extract just "name"
+  // If they typed just "name", use it as-is
+  var subdomain = host;
+  if (host.toLowerCase().endsWith(".service-now.com")) {
+    subdomain = host.slice(0, host.length - ".service-now.com".length);
+  }
+
+  if (!subdomain) {
+    error.textContent = "Please enter a host or instance name.";
+    return;
+  }
+
+  var sel = document.getElementById("snappSelect");
+  var snapp;
+  if (sel.value === "custom") {
+    snapp = document.getElementById("customSchemaInput").value.trim();
+    if (!snapp) {
+      error.textContent = "Please enter a custom schema value.";
+      return;
+    }
+  } else {
+    snapp = sel.value;
+  }
+
+  var url = "https://" + subdomain + ".service-now.com/mobileapplink?snapp=" + encodeURIComponent(snapp) + "&params=blah";
+  window.location.href = url;
+}
+</script>
+
 <script>
 //$(document).ready(function() { window.location="https://httpbin.org/redirect-to?url=snappauth%3A%2F%2F"; })
 function loadasync(){
