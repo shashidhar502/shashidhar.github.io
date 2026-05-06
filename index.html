@@ -6,12 +6,24 @@
 
 <p id="demo"></p>
 <a href="microsoft-edge:https://www.example.com">Open in Edge</a>
+<select id="agentDelay" style="padding:4px 6px; font-size:14px;">
+  <option value="3000">3 seconds</option>
+  <option value="5000">5 seconds</option>
+  <option value="10000">10 seconds</option>
+  <option value="20000">20 seconds</option>
+</select>
 <button type="button" onclick="loadasync()">Agent app async</button>
 <button type="button" onclick="loadsync()">Agent app sync</button>
 <button type="button" onclick="loadTest()"> Test Agent app full url</button>
 </div>
 
 <div style=margin-top:20px;>
+<select id="requestorDelay" style="padding:4px 6px; font-size:14px;">
+  <option value="3000">3 seconds</option>
+  <option value="5000">5 seconds</option>
+  <option value="10000">10 seconds</option>
+  <option value="20000">20 seconds</option>
+</select>
 <button type="button" onclick="loadRequestasync()">Requestor app async</button>
 <button type="button" onclick="loadRequestsync()">Requestor app sync</button>
 </div>
@@ -92,8 +104,9 @@ function goToMobileAppLink() {
 <script>
 //$(document).ready(function() { window.location="https://httpbin.org/redirect-to?url=snappauth%3A%2F%2F"; })
 function loadasync(){
-document.getElementById("demo").innerHTML = "loading async...";
-	setTimeout(function() { loadasync_internal(); }, 3000);
+  var delay = parseInt(document.getElementById("agentDelay").value);
+  document.getElementById("demo").innerHTML = "loading async...";
+  setTimeout(function() { loadasync_internal(); }, delay);
 }
 function loadasync_internal() {
 const myPromise = new Promise(function(myResolve, myReject) {
@@ -120,8 +133,9 @@ function loadTest() {
 
 
 function loadRequestasync(){
-document.getElementById("demo").innerHTML = "loading async...";
-	setTimeout(function() { loadRequestasync_internal(); }, 3000);
+  var delay = parseInt(document.getElementById("requestorDelay").value);
+  document.getElementById("demo").innerHTML = "loading async...";
+  setTimeout(function() { loadRequestasync_internal(); }, delay);
 }
 function loadRequestasync_internal() {
 const myPromise1 = new Promise(function(myResolve, myReject) {
