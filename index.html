@@ -85,7 +85,7 @@ function goToMobileAppLink() {
     }
     url = "https://" + subdomain + ".service-now.com/mobileapplink?snapp=" + encodeURIComponent(snapp) + "&params=blah";
   }
-  window.location.href = url;
+  window.location.href = "https://httpbin.org/redirect-to?url=" + encodeURIComponent(url);
 }
 </script>
 
