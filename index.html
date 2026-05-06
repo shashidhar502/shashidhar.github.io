@@ -59,18 +59,6 @@ function goToMobileAppLink() {
   // Take only the hostname part (drop path/query)
   host = host.split("/")[0];
 
-  // If user typed something like "name.service-now.com", extract just "name"
-  // If they typed just "name", use it as-is
-  var subdomain = host;
-  if (host.toLowerCase().endsWith(".service-now.com")) {
-    subdomain = host.slice(0, host.length - ".service-now.com".length);
-  }
-
-  if (!subdomain) {
-    error.textContent = "Please enter a host or instance name.";
-    return;
-  }
-
   var sel = document.getElementById("snappSelect");
   var snapp;
   if (sel.value === "custom") {
@@ -83,7 +71,20 @@ function goToMobileAppLink() {
     snapp = sel.value;
   }
 
-  var url = "https://" + subdomain + ".service-now.com/mobileapplink?snapp=" + encodeURIComponent(snapp) + "&params=blah";
+  var url;
+  if (!host) {
+    // Blank — default to service-now.com directly
+    url = "https://service-now.com/mobileapplink?snapp=" + encodeURIComponent(snapp) + "&params=blah";
+  } else if (host.toLowerCase() === "service-now.com") {
+    url = "https://service-now.com/mobileapplink?snapp=" + encodeURIComponent(snapp) + "&params=blah";
+  } else {
+    // Extract subdomain: strip trailing ".service-now.com" if present
+    var subdomain = host;
+    if (host.toLowerCase().endsWith(".service-now.com")) {
+      subdomain = host.slice(0, host.length - ".service-now.com".length);
+    }
+    url = "https://" + subdomain + ".service-now.com/mobileapplink?snapp=" + encodeURIComponent(snapp) + "&params=blah";
+  }
   window.location.href = url;
 }
 </script>
