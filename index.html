@@ -2,33 +2,54 @@
 <html>
 <body>
 
-<h2>Using the XMLHttpRequest Object</h2>
-
+<h2>Mobile App Deep Link Tester</h2>
 <p id="demo"></p>
-<a href="microsoft-edge:https://www.example.com">Open in Edge</a>
-<select id="agentDelay" style="padding:4px 6px; font-size:14px;">
-  <option value="3000">3 seconds</option>
-  <option value="5000">5 seconds</option>
-  <option value="10000">10 seconds</option>
-  <option value="20000">20 seconds</option>
-</select>
-<button type="button" onclick="loadasync()">Agent app async</button>
-<button type="button" onclick="loadsync()">Agent app sync</button>
-<button type="button" onclick="loadTest()"> Test Agent app full url</button>
+
+<!-- ───────────────────────────────────────────────
+     SECTION 1: Custom Schema
+     snappauth:// (Agent/Fulfiller)  |  snempappauth:// (Requestor)
+     ─────────────────────────────────────────────── -->
+<h3 style="margin-top:24px; border-bottom:2px solid #333; padding-bottom:4px;">Custom Schema</h3>
+<p style="font-size:13px; color:#555; margin:4px 0 12px;">
+  Uses custom URI schemes: <code>snappauth://</code> (Agent &bull; package: <code>com.servicenow.fulfiller</code>) and
+  <code>snempappauth://</code> (Requestor &bull; package: <code>com.servicenow.requestor</code>).
+</p>
+
+<div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px;">
+  <a href="microsoft-edge:https://www.example.com">Open in Edge</a>
+  <select id="agentDelay" style="padding:4px 6px; font-size:14px;">
+    <option value="3000">3 seconds</option>
+    <option value="5000">5 seconds</option>
+    <option value="10000">10 seconds</option>
+    <option value="20000">20 seconds</option>
+  </select>
+  <button type="button" onclick="loadasync()">Agent app async</button>
+  <button type="button" onclick="loadsync()">Agent app sync</button>
+  <button type="button" onclick="loadTest()">Test Agent app full url</button>
 </div>
 
-<div style=margin-top:20px;>
-<select id="requestorDelay" style="padding:4px 6px; font-size:14px;">
-  <option value="3000">3 seconds</option>
-  <option value="5000">5 seconds</option>
-  <option value="10000">10 seconds</option>
-  <option value="20000">20 seconds</option>
-</select>
-<button type="button" onclick="loadRequestasync()">Requestor app async</button>
-<button type="button" onclick="loadRequestsync()">Requestor app sync</button>
+<div style="margin-top:12px; display:flex; flex-wrap:wrap; align-items:center; gap:8px;">
+  <select id="requestorDelay" style="padding:4px 6px; font-size:14px;">
+    <option value="3000">3 seconds</option>
+    <option value="5000">5 seconds</option>
+    <option value="10000">10 seconds</option>
+    <option value="20000">20 seconds</option>
+  </select>
+  <button type="button" onclick="loadRequestasync()">Requestor app async</button>
+  <button type="button" onclick="loadRequestsync()">Requestor app sync</button>
 </div>
 
-<div style="margin-top:20px; display:flex; flex-wrap:wrap; align-items:center; gap:8px;">
+<!-- ───────────────────────────────────────────────
+     SECTION 2: HTTPS Schema / App Links
+     Routes through service-now.com/mobileapplink
+     ─────────────────────────────────────────────── -->
+<h3 style="margin-top:32px; border-bottom:2px solid #333; padding-bottom:4px;">HTTPS Schema / App Links</h3>
+<p style="font-size:13px; color:#555; margin:4px 0 12px;">
+  Uses verified App Links via <code>https://&lt;instance&gt;.service-now.com/mobileapplink?snapp=&lt;app&gt;</code>.
+  Android App Links require the instance's <code>assetlinks.json</code> to be configured.
+</p>
+
+<div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px;">
   <input
     type="text"
     id="snHostInput"
@@ -59,6 +80,46 @@
     Go to mobileapplink (async)
   </button>
   <span id="snLinkError" style="color:red; font-size:13px;"></span>
+</div>
+
+<!-- ───────────────────────────────────────────────
+     SECTION 3: Intent Schema (Android only)
+     intent://#Intent;scheme=...;package=...;end
+     ─────────────────────────────────────────────── -->
+<h3 style="margin-top:32px; border-bottom:2px solid #333; padding-bottom:4px;">Intent Schema (Android)</h3>
+<p style="font-size:13px; color:#555; margin:4px 0 12px;">
+  Uses Android <code>intent://</code> URIs to target a specific package directly.
+  Falls back to Play Store if the app is not installed (when <code>S.browser_fallback_url</code> is set).
+</p>
+
+<div style="background:#f5f5f5; border:1px solid #ddd; border-radius:6px; padding:12px; font-size:13px; margin-bottom:14px;">
+  <strong>Agent / Fulfiller</strong> &mdash; package: <code>com.servicenow.fulfiller</code><br>
+  <code style="word-break:break-all;">intent://#Intent;scheme=snappauth;package=com.servicenow.fulfiller;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;end</code>
+  <br><br>
+  <strong>Requestor / Mobile</strong> &mdash; package: <code>com.servicenow.requestor</code><br>
+  <code style="word-break:break-all;">intent://#Intent;scheme=snempappauth;package=com.servicenow.requestor;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;end</code>
+</div>
+
+<div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px;">
+  <select id="intentAgentDelay" style="padding:4px 6px; font-size:14px;">
+    <option value="3000">3 seconds</option>
+    <option value="5000">5 seconds</option>
+    <option value="10000">10 seconds</option>
+    <option value="20000">20 seconds</option>
+  </select>
+  <button type="button" onclick="intentAgentSync()">Agent intent (sync)</button>
+  <button type="button" onclick="intentAgentAsync()">Agent intent (async)</button>
+</div>
+
+<div style="margin-top:12px; display:flex; flex-wrap:wrap; align-items:center; gap:8px;">
+  <select id="intentRequestorDelay" style="padding:4px 6px; font-size:14px;">
+    <option value="3000">3 seconds</option>
+    <option value="5000">5 seconds</option>
+    <option value="10000">10 seconds</option>
+    <option value="20000">20 seconds</option>
+  </select>
+  <button type="button" onclick="intentRequestorSync()">Requestor intent (sync)</button>
+  <button type="button" onclick="intentRequestorAsync()">Requestor intent (async)</button>
 </div>
 
 <script>
@@ -169,7 +230,39 @@ myPromise1.then(function(value) {
 function loadRequestsync() {
   document.getElementById("demo").innerHTML = "loading synchronously...";
 	window.location.href = "https://httpbin.org/redirect-to?url=snempappauth%3A%2F%2F"
-  
+
+}
+
+// ── Intent Schema helpers ──────────────────────────────────────────────────
+var INTENT_AGENT     = "intent://#Intent;scheme=snappauth;package=com.servicenow.fulfiller;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;end";
+var INTENT_REQUESTOR = "intent://#Intent;scheme=snempappauth;package=com.servicenow.requestor;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;end";
+
+function intentAgentSync() {
+  document.getElementById("demo").innerHTML = "intent agent sync...";
+  window.location.href = INTENT_AGENT;
+}
+
+function intentAgentAsync() {
+  var delay = parseInt(document.getElementById("intentAgentDelay").value);
+  document.getElementById("demo").innerHTML = "intent agent async...";
+  setTimeout(function() {
+    document.getElementById("demo").innerHTML = "intent agent async triggered...";
+    window.location.href = INTENT_AGENT;
+  }, delay);
+}
+
+function intentRequestorSync() {
+  document.getElementById("demo").innerHTML = "intent requestor sync...";
+  window.location.href = INTENT_REQUESTOR;
+}
+
+function intentRequestorAsync() {
+  var delay = parseInt(document.getElementById("intentRequestorDelay").value);
+  document.getElementById("demo").innerHTML = "intent requestor async...";
+  setTimeout(function() {
+    document.getElementById("demo").innerHTML = "intent requestor async triggered...";
+    window.location.href = INTENT_REQUESTOR;
+  }, delay);
 }
 </script>
 
