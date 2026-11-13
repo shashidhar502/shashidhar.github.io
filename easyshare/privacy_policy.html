@@ -1,1 +1,204 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - EasyShare</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 { color: #075E54; margin-bottom: 10px; font-size: 32px; }
+
+        h2 {
+            color: #128C7E;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        h3 { color: #555; margin-top: 20px; margin-bottom: 10px; font-size: 17px; }
+
+        p { margin-bottom: 15px; color: #555; }
+
+        ul, ol { margin-left: 30px; margin-bottom: 15px; }
+
+        li { margin-bottom: 8px; color: #555; }
+
+        .highlight {
+            background: #e8f5e9;
+            padding: 20px;
+            border-left: 4px solid #25D366;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .updated-date { color: #999; font-size: 14px; margin-bottom: 30px; }
+
+        strong { color: #333; }
+
+        a { color: #128C7E; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #999;
+            font-size: 14px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <h1>💬 Privacy Policy</h1>
+    <p class="updated-date">Last Updated: November 13, 2024</p>
+
+    <div class="highlight">
+        <p><strong>Simple Summary:</strong> EasyShare does not collect, store, transmit, or share any of your personal data with external servers. All your snippets, contacts, and history live only on your device.</p>
+    </div>
+
+    <h2>1. Introduction</h2>
+    <p>This Privacy Policy describes how EasyShare ("we", "our", or "the app") handles information when you use our Android application.</p>
+    <p>
+        <strong>Developer:</strong> EasyLife<br>
+        <strong>App Name:</strong> EasyShare<br>
+        <strong>Package Name:</strong> com.easylife.easyshare<br>
+        
+    </p>
+
+    <h2>2. Information We Collect</h2>
+
+    <h3>2.1 What We DON'T Collect</h3>
+    <p>EasyShare does NOT collect, store, or transmit any personal information, including:</p>
+    <ul>
+        <li>❌ Personal identification information</li>
+        <li>❌ Phone numbers you enter or save</li>
+        <li>❌ Snippets or messages you create</li>
+        <li>❌ Contacts saved in the app</li>
+        <li>❌ Your send history</li>
+        <li>❌ Device information or identifiers</li>
+        <li>❌ Location data</li>
+        <li>❌ Usage statistics or analytics</li>
+        <li>❌ Crash reports</li>
+    </ul>
+
+    <h3>2.2 What Stays on Your Device</h3>
+    <p>All data you enter in EasyShare is stored exclusively on your device using local Android storage (Room Database and SharedPreferences):</p>
+    <ul>
+        <li>✓ Snippets (Location, Address, Bank Account, Plain Text)</li>
+        <li>✓ In-app contacts</li>
+        <li>✓ Send history</li>
+        <li>✓ App preferences (default country code, default snippets)</li>
+    </ul>
+    <p>None of this data ever leaves your device.</p>
+
+    <h2>3. How EasyShare Works</h2>
+    <ol>
+        <li>You enter or paste a WhatsApp number on the Home screen</li>
+        <li>You select which snippets to send from your personal library</li>
+        <li>EasyShare opens WhatsApp with the message pre-filled using the <code>wa.me</code> deep link</li>
+        <li>You review and send the message in WhatsApp</li>
+    </ol>
+    <p><strong>No message content is sent to EasyShare's servers</strong> — the app simply passes the text to WhatsApp via a standard Android intent.</p>
+
+    <h2>4. Internet Permission</h2>
+    <p>EasyShare declares the <code>INTERNET</code> permission in its manifest. This permission is used <strong>exclusively</strong> to open WhatsApp web links (<code>https://wa.me/...</code>) via the Android browser or WhatsApp app. It is not used to transmit any data to external servers.</p>
+
+    <h2>5. Third-Party Services</h2>
+    <p>EasyShare does NOT use any third-party SDKs or services, including:</p>
+    <ul>
+        <li>❌ No analytics (Firebase, Google Analytics, etc.)</li>
+        <li>❌ No advertising networks</li>
+        <li>❌ No crash reporting services</li>
+        <li>❌ No cloud sync or backup services</li>
+        <li>❌ No authentication services</li>
+    </ul>
+    <p>When you send a message, WhatsApp is opened externally. Your interactions within WhatsApp are governed by <a href="https://www.whatsapp.com/legal/privacy-policy" target="_blank">WhatsApp's Privacy Policy</a>.</p>
+
+    <h2>6. Permissions Used</h2>
+    <ul>
+        <li><strong>INTERNET</strong> — Only to open WhatsApp <code>wa.me</code> links. No data is transmitted.</li>
+    </ul>
+    <p>EasyShare does not request access to your contacts, camera, microphone, storage, location, or any other sensitive permission.</p>
+
+    <h2>7. Data Storage &amp; Security</h2>
+    <h3>7.1 Local Storage Only</h3>
+    <p>All data is stored in your device's private app storage using Android Room Database. It is not accessible to other apps and is deleted when you uninstall EasyShare.</p>
+
+    <h3>7.2 Security</h3>
+    <ul>
+        <li>✓ No data is transmitted — it cannot be intercepted</li>
+        <li>✓ No external servers — your data cannot be accessed remotely</li>
+        <li>✓ Your data is protected by your device's security (PIN, biometrics)</li>
+    </ul>
+
+    <h2>8. Children's Privacy</h2>
+    <p>EasyShare is safe for all ages. Since we do not collect any information from anyone, there are no COPPA concerns. The app is rated Everyone on Google Play.</p>
+
+    <h2>9. Your Rights</h2>
+    <p>Under GDPR, CCPA, and similar privacy laws, you have rights over your personal data. Since EasyShare stores all data locally on your device, you have full control:</p>
+    <ul>
+        <li>✓ <strong>Access:</strong> All your data is visible directly in the app</li>
+        <li>✓ <strong>Deletion:</strong> Delete snippets, contacts, or history from within the app. Uninstalling the app deletes everything.</li>
+        <li>✓ <strong>Portability:</strong> Your data never left your device</li>
+        <li>✓ <strong>Rectification:</strong> Edit any snippet or contact directly in the app</li>
+    </ul>
+
+    <h2>10. Data Retention</h2>
+    <p>EasyShare retains no data on external servers. Data stored locally on your device persists until you delete it within the app or uninstall the app.</p>
+
+    <h2>11. International Data Transfers</h2>
+    <p>Since EasyShare does not collect or transmit any data, there are no international data transfers.</p>
+
+    <h2>12. Compliance</h2>
+    <ul>
+        <li>✓ GDPR (General Data Protection Regulation)</li>
+        <li>✓ CCPA (California Consumer Privacy Act)</li>
+        <li>✓ COPPA (Children's Online Privacy Protection Act)</li>
+        <li>✓ Google Play Store Developer Policy</li>
+        <li>✓ India's IT Act &amp; DPDP Act 2023</li>
+    </ul>
+
+    <h2>13. Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. Changes are indicated by an updated "Last Updated" date at the top of this page. Continued use of the app after changes constitutes acceptance of the updated policy.</p>
+
+    <h2>14. Contact Us</h2>
+    <p>If you have any questions about this Privacy Policy, please contact us:</p>
+    <p>
+        <strong>Email:</strong> <a href="mailto:support@easyshare.app">support@easyshare.app</a><br>
+        <strong>App:</strong> EasyShare<br>
+        <strong>Package:</strong> com.easylife.easyshare
+    </p>
+
+    <div class="highlight">
+        <p><strong>Summary:</strong> EasyShare is a 100% local app. Your snippets, contacts, and history never leave your device. We built EasyShare to save you time — not to collect your data.</p>
+    </div>
+
+    <div class="footer">
+        <p>EasyShare — Made with ❤️ in India</p>
+        <p>This privacy policy is effective as of November 13, 2024</p>
+    </div>
+
+</div>
+</body>
+</html>
